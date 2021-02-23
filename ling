@@ -1,0 +1,97 @@
+#include <iostream>
+
+float media (int a, float *precodecusto);	// prototipo da funC'C#o
+
+
+
+int main (void)			//funC'C#o principal
+{
+
+  int quantprodutos, c, menor = 0, maior = 0, numero;	// declarando variC!veis inteiras 
+  float precodecusto[10], porcentagem, precodevenda[10], taxas, mediapcusto, vetorresulta, resultado, totalimposto = 0, lucro = 0;	//declarando variC!veis que necessitam de casa decimal.
+
+  printf ("digite a quantidade de produtos a ser analisada\n");	//pedindo pro usuC!rio digitar a quantidade de produtos, que serC! armazenado na variC!vel quantprodutos.
+  scanf ("%d", &quantprodutos);
+
+
+  for (c = 0; c < quantprodutos; c++)	//loop em qual serC! perguntado ao usuC!rio o preC'o de custo de cada um dos produtos e posteriormente serC! salvo no vetor precocusto[c];
+    {
+      printf ("qual o custo do produto?\n");
+      scanf ("%f", &precodecusto[c]);
+
+    }
+  printf ("digite a margem de lucro desejada em porcentagem\n");	//pedindo pro usuC!rio a margem de lucro em % e salvando na variC!vel porcentagem
+  scanf ("%f", &porcentagem);
+  porcentagem = porcentagem / 100;	//divindo a variC!vel porcentagem por 100.
+  system ("CLS");		// comando para limpar o console.
+  printf ("Item\t preco de venda\n");	// imprindo a parte de cima da tabela.
+
+  for (c = 0; c < quantprodutos; c++)	//loop no qual serC! armazenado no vetor precodevenda[c] o precodecusto vezes 1+ a margem de lucro inserida e no fim era imprimir o preC'o de venda do produto.
+
+    {
+
+      precodevenda[c] = precodecusto[c] * (1 + porcentagem);
+      printf ("Item %d\t- R$%5.2f\n", c + 1, precodevenda[c]);
+    }
+  printf ("\n\n");		//EspaC'o 
+  printf ("Item\t preco de custo\t Preco final\n");	//imprimindo a parte da cima da tabela da comparaC'C#o entre o preC'o de custo e o preC'o final.
+  for (c = 0; c < quantprodutos; c++)	//Loop para achar o preC'o final e imprimir para o usuC!rio. 
+    {
+      taxas = (precodevenda[c] * 1.05);
+      printf ("Item %d\t- R$%5.2f\t- R$%5.2f\n", c + 1, precodecusto[c],
+	      taxas);
+
+      if (precodecusto[c] > precodecusto[maior])	//if para achar o maior e menor preC'o de custo dos produtos inseridos.
+	{
+	  maior = c;
+	}
+
+      if (precodecusto[c] < precodecusto[menor])
+	{
+	  menor = c;
+	}
+    }
+  printf ("\n\n");		//espaC'o
+  printf ("Item %d tem o menor preco de custo\t\nItem %d tem o maior preco de custo", menor + 1, maior + 1);	//imprimindo o maior e o menor preC'o de custo
+  printf ("\n\n");		//espaC'o
+  resultado = media (quantprodutos, precodecusto);	//chamando funC'C#o que calcula a mC)dia.
+  printf ("\n a media e: R$%5.2f\n", resultado);	//imprimi a mC)dia
+  printf ("\n\n");		//espaC'o
+
+  for (c = 0; c < quantprodutos; c++)	//loop pque imprimi o total de imposto.
+    {
+      totalimposto = totalimposto + (precodevenda[c] * 0.05);
+    }
+
+  printf
+    ("o total de imposto supondo a venda 1 item de cada produto: R$%5.2f\n",
+     totalimposto);
+
+  for (c = 0; c < quantprodutos; c++)	// melhoria: Loop que calcula o lucro lC-quido.
+    {
+      lucro = lucro + (precodecusto[c] * porcentagem);
+
+    }
+  printf ("\n\n");		//espaC'o
+  printf ("O lucro Liquido eh:R$%5.2f\n", lucro);	//imprimindo o lucro lC-quido.
+
+}
+
+float
+media (int a, float *precodecusto)	//funC'C#o que calcula a mC)dia.
+{
+  int c;
+  float soma = 0;
+  float m = 0;
+
+
+  for (c = 0; c < a; c++)	// loop onde serC! realizado o cC!lculo da mC)dia.
+    {
+      soma = soma + precodecusto[c];
+
+
+    }
+  m = soma / a;
+  return m;			//retornando o valor da mC)dia para a funC'C#o main.
+
+}
